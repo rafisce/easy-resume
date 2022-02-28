@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  background-color: #525659;
+  font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+.PdfView input,
+.PdfView button {
+  font: inherit;
+}
+
+.PdfView header {
+  background-color: #323639;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  color: white;
+}
+
+.PdfView header h1 {
+  font-size: inherit;
+  margin: 0;
+}
+
+.PdfView__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.PdfView__container__load {
+  margin-top: 1em;
+  color: white;
+}
+
+.PdfView__container__document {
+  margin: 1em 0;
+}
+
+.PdfView__container__document .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PdfView__container__document .react-pdf__Page {
+  max-width: calc(100% - 14em);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  margin: 1em;
+}
+
+.pdfdoc .react-pdf__Page {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  margin: 0.5em;
+}
+.pdfdoc .react-pdf__Page__canvas {
+  width: 200px !important;
+  height: 282px !important;
+}
+
+.PdfView__container__document .react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.PdfView__container__document .react-pdf__message {
+  padding: 20px;
+  color: white;
+}
+.Page_control {
+  position: relative;
+  bottom: 4rem;
+  width: 12.5%;
+}
+
+.Page_control span {
+  width: 70%;
+}
+.Page_control button {
+  width: 15%;
+}
