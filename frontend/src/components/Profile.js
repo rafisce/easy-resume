@@ -8,21 +8,36 @@ const Profile = (props) => {
   const db = getFirestore(app);
   const authUser = JSON.parse(localStorage.getItem("authUser"));
   const [editorState, setEditorState] = useState();
-  const [old, setOld] = useState();
+
   const [started, setStarted] = useState(true);
 
-  const updateMe = (editor) => {
-    updateProfile({ profile: convertToRaw(editor.getCurrentContent()) });
+  const updateMe = async (editor) => {
+    const info={
+      oldprofile:null
+    }
+    const docRef = doc(db, `Users/${authUser.uid}`);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()){
+        const prof = docSnap.data();
+        info.oldprofile=prof.profile
+
+      }
+    if(!arrayEquals(convertToRaw(editor.getCurrentContent()).blocks,info.oldprofile.blocks))
+    { updateProfile({ profile: convertToRaw(editor.getCurrentContent()),lastProfile:info.oldprofile});}
+   
+    props.updateParent();
   };
 
   const updateProfile = async (data) => {
     await updateDoc(doc(db, `Users/${authUser.uid}`), data);
   };
-  const changed = (old, updated) => {
-    if (old !== updated) {
-      props.updateParent();
-    }
-  };
+
+  function arrayEquals(a, b) {
+    return Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((val, index) => val === b[index]);
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +46,7 @@ const Profile = (props) => {
       if (docSnap.exists() && started) {
         const info = docSnap.data();
         setEditorState(
-          EditorState.createWithContent(convertFromRaw(info.profile))
+          info.profile?EditorState.createWithContent(convertFromRaw(info.profile)):EditorState.createEmpty()
         );
         setStarted(false);
       }
@@ -49,6 +64,7 @@ const Profile = (props) => {
             editorState={editorState}
             plain={true}
             updateParent={updateMe}
+            
           />
         ) : null}
       </div>

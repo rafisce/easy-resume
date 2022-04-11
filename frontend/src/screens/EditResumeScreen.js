@@ -39,7 +39,7 @@ export const EditResumeScreen = (props) => {
         </form>
       </div>
       <div id="preview">
-        <PdfView key={change} userId={authUser.uid} docId={docId} />
+        <PdfView change={change} userId={authUser.uid} docId={docId} />
       </div>
     </div>
   );

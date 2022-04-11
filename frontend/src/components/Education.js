@@ -31,6 +31,7 @@ const Education = (props) => {
     );
   };
   const updateMe = (editor) => {
+    console.log(convertToRaw(editor.getCurrentContent()));
     updateEducation({ description: convertToRaw(editor.getCurrentContent()) });
   };
 
@@ -118,7 +119,7 @@ const Education = (props) => {
                 value={start || ""}
                 onChange={(e) => setStart(e.target.value)}
                 onBlur={(e) =>
-                  updateEducation({ start: e.target.value }) +
+                  //updateEducation({ start: e.target.value }) +
                   changed(old, e.target.value)
                 }
                 onFocus={(e) => setOld(e.target.value)}

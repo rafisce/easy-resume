@@ -39,6 +39,7 @@ const Adder = (props) => {
               num={jobs.length}
               docId={docId}
               current={tempJob}
+              updateParent={updateMe}
 
               // removeMe={remove}
             />
@@ -67,6 +68,7 @@ const Adder = (props) => {
               num={education.length}
               docId={docId}
               current={tempEducation}
+              updateParent={updateMe}
 
               // removeMe={remove}
             />
@@ -140,12 +142,15 @@ const Adder = (props) => {
           Promise.All(
             querySnapshot.forEach(async (doc) => {
               const job = doc.data();
+              job.jobId = doc.id;
+              console.log(doc.id);
               setJobs((oldArray) => [
                 ...oldArray,
                 <JobHistory
                   key={doc.id}
                   docId={docId}
                   current={job}
+                  updateParent={updateMe}
                 ></JobHistory>,
               ]);
             })
@@ -158,15 +163,20 @@ const Adder = (props) => {
             collection(db, `Users/${authUser.uid}/Documents/${docId}/Education`)
           );
 
+          setEducation([]);
           Promise.All(
             querySnapshot.forEach(async (doc) => {
               const edu = doc.data();
+              edu.educationId = doc.id;
+              console.log(doc.id);
+
               setEducation((oldArray) => [
                 ...oldArray,
                 <Education
                   key={doc.id}
                   docId={docId}
                   current={edu}
+                  updateParent={updateMe}
                 ></Education>,
               ]);
             })
@@ -182,6 +192,8 @@ const Adder = (props) => {
           Promise.All(
             querySnapshot.forEach(async (doc) => {
               const skill = doc.data();
+              skill.skillId = doc.id;
+              console.log(doc.id);
               setSkills((oldArray) => [
                 ...oldArray,
                 <Skills key={doc.id} docId={docId} current={skill}></Skills>,
@@ -199,6 +211,8 @@ const Adder = (props) => {
           Promise.All(
             querySnapshot.forEach(async (doc) => {
               const link = doc.data();
+              console.log(doc.id);
+              link.linkId = doc.id;
               setLinks((oldArray) => [
                 ...oldArray,
                 <MyLink key={doc.id} docId={docId} current={link}></MyLink>,

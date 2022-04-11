@@ -62,7 +62,7 @@ const PersonalInfo = (props) => {
             value={fname || ""}
             onChange={(e) => setFname(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ first_name: fname }) + changed(old, e.target.value)
+              updateInfo({ first_name: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -76,7 +76,7 @@ const PersonalInfo = (props) => {
             value={lname || ""}
             onChange={(e) => setLname(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ last_name: lname }) + changed(old, e.target.value)
+              updateInfo({ last_name: e.target.value })+ changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -92,7 +92,7 @@ const PersonalInfo = (props) => {
             value={email || ""}
             onChange={(e) => setEmail(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ email: email }) + changed(old, e.target.value)
+              updateInfo({ email: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -106,7 +106,7 @@ const PersonalInfo = (props) => {
             value={phone || ""}
             onChange={(e) => setPhone(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ phone: phone }) + changed(old, e.target.value)
+              updateInfo({ phone: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -121,7 +121,7 @@ const PersonalInfo = (props) => {
             name="city"
             value={city || ""}
             onChange={(e) => setCity(e.target.value)}
-            onBlur={(e) => updateInfo({ city: city })}
+            onBlur={(e) => updateInfo({ city: e.target.value })}
             onFocus={(e) =>
               setOld(e.target.value) + changed(old, e.target.value)
             }
@@ -136,7 +136,7 @@ const PersonalInfo = (props) => {
             value={address || ""}
             onChange={(e) => setAddress(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ address: address }) + changed(old, e.target.value)
+              updateInfo({ address: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -152,7 +152,7 @@ const PersonalInfo = (props) => {
             value={job || ""}
             onChange={(e) => setJob(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ job: job }) + changed(old, e.target.value)
+              updateInfo({ job: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -166,7 +166,7 @@ const PersonalInfo = (props) => {
             value={license || ""}
             onChange={(e) => setLicense(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ license: license }) + changed(old, e.target.value)
+              updateInfo({ license: e.target.value }) + changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}
             required
@@ -183,7 +183,7 @@ const PersonalInfo = (props) => {
             value={birthDate || ""}
             onChange={(e) => setBirthDate(e.target.value)}
             onBlur={(e) =>
-              updateInfo({ birth_date: birthDate }) +
+              updateInfo({ birth_date: e.target.value }) +
               changed(old, e.target.value)
             }
             onFocus={(e) => setOld(e.target.value)}

@@ -27,10 +27,13 @@ class RichEditor extends React.Component {
         : EditorState.createEmpty(),
     };
     this.dir = "right";
+    this.old =null;
 
     //this.focus = () => this.useR.editor.focus();
     this.onChange = (editorState) => {
+      const old=editorState
       this.setState({ editorState });
+     // this.props.updateParent(editorState)
     };
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
@@ -120,9 +123,20 @@ class RichEditor extends React.Component {
             placeholder="תיאור..."
             textAlignment={this.dir}
             spellCheck={true}
+            
+              
             onBlur={(e) => {
-              this.props.updateParent(editorState);
+              if(editorState.getCurrentContent().getPlainText()!==this.old){
+                this.props.updateParent(editorState);
+              }
+           
             }}
+
+            onFocus={(e)=>{
+              this.old=editorState.getCurrentContent().getPlainText();
+            }}
+
+            
           />
         </div>
       </div>

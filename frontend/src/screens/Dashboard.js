@@ -32,6 +32,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    if(authUser!=null){
     async function fetchData() {
       try {
         const querySnapshot = await getDocs(
@@ -58,11 +59,15 @@ const Dashboard = () => {
       } catch (err) {}
     }
     fetchData();
+  }
+  else{
+    navigate('/')
+  }
   }, []);
 
   return (
     <div className="dash">
-      {authUser ? (
+      
         <div className="rowdoc">
           <button
             className="card_ add-doc"
@@ -86,9 +91,7 @@ const Dashboard = () => {
               new Date(a.props.document.createdAt)
           )}
         </div>
-      ) : (
-        navigate("/")
-      )}
+      
     </div>
   );
 };

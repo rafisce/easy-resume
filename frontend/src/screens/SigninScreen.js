@@ -20,7 +20,9 @@ const SigninScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password).then((data) => {
+      navigate(`/dashboard/${data.user.uid}`);
+    });
   };
 
   useEffect(() => {

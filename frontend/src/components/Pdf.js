@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Document, Page } from "react-pdf";
 import { Link } from "react-router-dom";
 import { freshPdf } from "../resFormats/Clean";
+import Loader from "./Loader";
 import LoadingBox from "./LoadingBox";
 
 const options = {
@@ -28,11 +29,7 @@ const Pdf = (props) => {
         className="pdfdoc"
         file={props.fresh ? freshPdf() : file}
         onLoadSuccess={onDocumentLoadSuccess}
-        loading={
-          <div style={{ width: "210px", height: "292px" }}>
-            <LoadingBox />
-          </div>
-        }
+        loading={<Loader />}
         noData={<div style={{ width: "210px", height: "292px" }}></div>}
         options={options}
       >

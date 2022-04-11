@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 import app from "../fire";
-import { getDatabase, ref, set } from "firebase/database";
+import { addDoc, collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+
 
 const RegisterScreen = () => {
   const auth = getAuth(app);
-  const db = getDatabase(app);
+  const db = getFirestore(app);
   auth.onAuthStateChanged(function (authUser) {
     authUser
       ? localStorage.setItem("authUser", JSON.stringify(authUser))
@@ -27,13 +29,15 @@ const RegisterScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm) {
-      createUserWithEmailAndPassword(auth, email, password).then((data) => {
-        set(ref(db, "users/" + data.user.uid + "/personal_info"), {
-          first_name: fname,
+      createUserWithEmailAndPassword(auth, email, password).then(async(data)=> {
+        await setDoc(doc(db, "Users", data.user.uid), {
+          first_name:fname,
           last_name: lname,
-          email: email,
+          email:email
+        }).then(()=>{
+          navigate("/dashboard/"+data.user.uid)
         });
-        navigate(`/dashboard/${data.user.uid}`);
+        
       });
 
       setMatching(true);

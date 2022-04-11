@@ -2,13 +2,16 @@ import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { signOut, getAuth } from "firebase/auth";
 import app from "../fire";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const auth = getAuth(app);
   const signoutHandler = () => {
     signOut(auth);
     if (localStorage.getItem("authUser")) {
       localStorage.removeItem("authUser");
+      navigate("/");
     }
   };
   return (

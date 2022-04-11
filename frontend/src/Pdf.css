@@ -80,3 +80,7 @@ body {
 .Page_control button {
   width: 15%;
 }
+
+.clear{
+  display: none !important;
+}
