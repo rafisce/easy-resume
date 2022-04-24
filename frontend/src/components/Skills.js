@@ -79,7 +79,7 @@ const Skills = (props) => {
   const changed = (old, updated) => {
     if (old !== updated) {
       console.log("changed " + old + " to " + updated);
-      props.updateParent();
+      //props.updateParent();
     }
   };
 

@@ -32,7 +32,7 @@ const JobHistory = (props) => {
   const changed = (old, updated) => {
     if (old !== updated) {
       console.log("changed " + old + " to " + updated);
-      props.updateParent();
+      // props.updateParent();
     }
   };
 
@@ -91,7 +91,7 @@ const JobHistory = (props) => {
               value={job || ""}
               onChange={(e) => setJob(e.target.value)}
               onBlur={(e) =>
-                updateJob({ job: job } + changed(old, e.target.value))
+                updateJob({ job: job }) + changed(old, e.target.value)
               }
               onFocus={(e) => setOld(e.target.value)}
             ></input>
@@ -104,7 +104,7 @@ const JobHistory = (props) => {
               value={employer || ""}
               onChange={(e) => setEmployer(e.target.value)}
               onBlur={(e) =>
-                updateJob({ employer: employer }) + changed(e.target.value)
+                updateJob({ employer: employer }) + changed(old, e.target.value)
               }
               onFocus={(e) => setOld(e.target.value)}
             ></input>

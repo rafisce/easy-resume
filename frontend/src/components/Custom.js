@@ -1,10 +1,11 @@
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { Form } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import app from "../fire";
 import "../rich-editor.css";
-import Switch from "./Switch";
+
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 
 import RichEditor from "./RichEditor";
@@ -16,10 +17,11 @@ const Custom = (props) => {
   const authUser = JSON.parse(localStorage.getItem("authUser"));
 
   const [isInput, setInput] = useState(false);
-  const [name, setName] = useState("לא צויין שם  פריט");
+  const [title, setTitle] = useState("לא צויין שם  פריט");
   const [start, setStart] = useState("2000-01-01");
   const [finish, setFinish] = useState("2000-01-01");
   const [isOpen, setIsOpen] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   // const [started, setStarted] = useState(true);
   // const [old, setOld] = useState();
   const [editorState, setEditorState] = useState();
@@ -31,7 +33,7 @@ const Custom = (props) => {
     await updateDoc(
       doc(
         db,
-        `Users/${authUser.uid}/Documents/${docId}/Customs/${areaId}/customItems/${current.customId}`
+        `Users/${authUser.uid}/Documents/${docId}/Customs/${areaId}/customItems/${current.id}`
       ),
       data
     );
@@ -41,9 +43,12 @@ const Custom = (props) => {
   };
 
   useEffect(() => {
+    setTitle(current.title ? current.title : title);
+    setTitle(current.disabled ? current.disabled : disabled);
     setStart(current.start);
     setFinish(current.finish);
     setIsOpen(current.open);
+
     setEditorState(
       current.description
         ? EditorState.createWithContent(convertFromRaw(current.description))
@@ -90,13 +95,17 @@ const Custom = (props) => {
                   autoFocus={isInput}
                   type="text"
                   name="name"
-                  value={name || ""}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={() => setInput(false)}
+                  value={title || ""}
+                  onChange={(e) => setTitle(e.target.value)}
+                  onBlur={(e) =>
+                    setInput(false) +
+                    updateCustom({ title: e.target.value }) +
+                    console.log(e.target.value)
+                  }
                 ></input>
               ) : (
                 <div className="editable">
-                  <h2 onClick={() => setInput(true)}>{name}</h2>
+                  <h2 onClick={() => setInput(true)}>{title}</h2>
                 </div>
               )}
               {editorState ? (
@@ -105,8 +114,15 @@ const Custom = (props) => {
             </div>
           </div>
 
-          <div style={{ width: "20%", marginBottom: "1rem" }}>
-            <Switch />
+          <div style={{ width: "5%", margin: "1rem" }}>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              checked={!disabled}
+              onChange={() =>
+                setDisabled(!disabled) + updateCustom({ disabled: !disabled })
+              }
+            />
           </div>
           {
             <div className="row duration">
@@ -119,6 +135,7 @@ const Custom = (props) => {
                   onBlur={
                     (e) => updateCustom({ start: e.target.value }) //+ changed(old, e.target.value)
                   }
+                  disabled={disabled}
                   //onFocus={(e) => setOld(e.target.value)}
                 />
               </div>
@@ -131,6 +148,7 @@ const Custom = (props) => {
                   onBlur={
                     (e) => updateCustom({ finish: e.target.value }) //+ changed(old, e.target.value)
                   }
+                  disabled={disabled}
                   //onFocus={(e) => setOld(e.target.value)}
                 />
               </div>

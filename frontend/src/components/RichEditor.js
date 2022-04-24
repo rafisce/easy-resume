@@ -27,13 +27,13 @@ class RichEditor extends React.Component {
         : EditorState.createEmpty(),
     };
     this.dir = "right";
-    this.old =null;
+    this.old = null;
 
     //this.focus = () => this.useR.editor.focus();
     this.onChange = (editorState) => {
-      const old=editorState
+      const old = editorState;
       this.setState({ editorState });
-     // this.props.updateParent(editorState)
+      // this.props.updateParent(editorState)
     };
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
@@ -123,20 +123,14 @@ class RichEditor extends React.Component {
             placeholder="תיאור..."
             textAlignment={this.dir}
             spellCheck={true}
-            
-              
             onBlur={(e) => {
-              if(editorState.getCurrentContent().getPlainText()!==this.old){
+              if (editorState.getCurrentContent().getPlainText() !== this.old) {
                 this.props.updateParent(editorState);
               }
-           
             }}
-
-            onFocus={(e)=>{
-              this.old=editorState.getCurrentContent().getPlainText();
+            onFocus={(e) => {
+              this.old = editorState.getCurrentContent().getPlainText();
             }}
-
-            
           />
         </div>
       </div>
@@ -187,16 +181,16 @@ class StyleButton extends React.Component {
 }
 
 const BLOCK_TYPES = [
-  {
-    label: "UL",
-    style: "unordered-list-item",
-    icon: <FontAwesomeIcon icon={faListUl} />,
-  },
-  {
-    label: "OL",
-    style: "ordered-list-item",
-    icon: <FontAwesomeIcon icon={faListOl} />,
-  },
+  // {
+  //   label: "UL",
+  //   style: "unordered-list-item",
+  //   icon: <FontAwesomeIcon icon={faListUl} />,
+  // },
+  // {
+  //   label: "OL",
+  //   style: "ordered-list-item",
+  //   icon: <FontAwesomeIcon icon={faListOl} />,
+  // },
 ];
 
 const BlockStyleControls = (props) => {
@@ -223,9 +217,9 @@ const BlockStyleControls = (props) => {
 };
 
 var INLINE_STYLES = [
-  { label: "Bold", style: "BOLD" },
-  { label: "Italic", style: "ITALIC" },
-  { label: "Underline", style: "UNDERLINE" },
+  // { label: "Bold", style: "BOLD" },
+  // { label: "Italic", style: "ITALIC" },
+  // { label: "Underline", style: "UNDERLINE" },
   {
     label: "AR",
     style: "align-right",

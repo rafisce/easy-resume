@@ -26,11 +26,12 @@ const CustomArea = (props) => {
   };
   const add = async () => {
     const tempCustom = {
-      title: "לא צוינה כותרת",
+      title: "לא צוין שם פריט",
       start: "2000-01-01",
       finish: "2000-01-01",
       description: null,
       open: true,
+      disabled: true,
     };
     await addDoc(
       collection(
@@ -39,7 +40,7 @@ const CustomArea = (props) => {
       ),
       tempCustom
     ).then(async (custom) => {
-      tempCustom.customId = custom.id;
+      tempCustom.id = custom.id;
 
       setCustomList(
         customList.concat(
@@ -94,7 +95,6 @@ const CustomArea = (props) => {
                 areaId={areaId}
                 docId={docId}
                 current={custom}
-                customId={custom.id}
                 removeMe={remove}
               />,
             ]);

@@ -133,7 +133,6 @@ const Adder = (props) => {
   useEffect(() => {
     async function fetchData() {
       if (type === "עבר תעסוקתי") {
-        // dispatch(listJobs({ userId: authUser.uid, docId: docId }));
         try {
           const querySnapshot = await getDocs(
             collection(db, `Users/${authUser.uid}/Documents/${docId}/Jobs`)
@@ -143,7 +142,7 @@ const Adder = (props) => {
             querySnapshot.forEach(async (doc) => {
               const job = doc.data();
               job.jobId = doc.id;
-              console.log(doc.id);
+
               setJobs((oldArray) => [
                 ...oldArray,
                 <JobHistory
@@ -157,7 +156,6 @@ const Adder = (props) => {
           );
         } catch (err) {}
       } else if (type === "השכלה") {
-        // dispatch(listEducation({ userId: authUser.uid, docId: docId }));
         try {
           const querySnapshot = await getDocs(
             collection(db, `Users/${authUser.uid}/Documents/${docId}/Education`)
@@ -168,7 +166,6 @@ const Adder = (props) => {
             querySnapshot.forEach(async (doc) => {
               const edu = doc.data();
               edu.educationId = doc.id;
-              console.log(doc.id);
 
               setEducation((oldArray) => [
                 ...oldArray,
@@ -183,7 +180,6 @@ const Adder = (props) => {
           );
         } catch (err) {}
       } else if (type === "יכולות") {
-        // dispatch(listSkills({ userId: authUser.uid, docId: docId }));
         try {
           const querySnapshot = await getDocs(
             collection(db, `Users/${authUser.uid}/Documents/${docId}/Skills`)
@@ -193,7 +189,7 @@ const Adder = (props) => {
             querySnapshot.forEach(async (doc) => {
               const skill = doc.data();
               skill.skillId = doc.id;
-              console.log(doc.id);
+
               setSkills((oldArray) => [
                 ...oldArray,
                 <Skills key={doc.id} docId={docId} current={skill}></Skills>,
@@ -202,7 +198,6 @@ const Adder = (props) => {
           );
         } catch (err) {}
       } else if (type === "לינקים") {
-        // dispatch(listLinks({ userId: authUser.uid, docId: docId }));
         try {
           const querySnapshot = await getDocs(
             collection(db, `Users/${authUser.uid}/Documents/${docId}/Links`)
@@ -211,7 +206,7 @@ const Adder = (props) => {
           Promise.All(
             querySnapshot.forEach(async (doc) => {
               const link = doc.data();
-              console.log(doc.id);
+
               link.linkId = doc.id;
               setLinks((oldArray) => [
                 ...oldArray,
